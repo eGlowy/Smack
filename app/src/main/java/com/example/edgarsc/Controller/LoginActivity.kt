@@ -1,9 +1,10 @@
-package com.example.edgarsc
+package com.example.edgarsc.Controller
 
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.example.edgarsc.R
 
 class LoginActivity : AppCompatActivity() {
 
