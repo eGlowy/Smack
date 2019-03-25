@@ -11,6 +11,7 @@ import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import com.example.edgarsc.R
 import com.example.edgarsc.Services.AuthService
 import com.example.edgarsc.Services.UserDataService
@@ -62,9 +63,8 @@ class MainActivity : AppCompatActivity(){
 
     fun loginBtnNavClicked(view: View) {
         if (AuthService.isLoggedIn) {
-            //log out
             UserDataService.logOut()
-            userNameNavHeader.text = "Login"
+            userNameNavHeader.text = ""
             userEmailNavHeader.text = ""
             userImageNavHeader.setImageResource(R.drawable.profiledefault)
             userImageNavHeader.setBackgroundColor(Color.TRANSPARENT)
@@ -83,4 +83,5 @@ class MainActivity : AppCompatActivity(){
     fun sendMsgBtnClicked(view: View){
 
     }
+
 }
