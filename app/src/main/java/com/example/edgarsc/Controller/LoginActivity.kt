@@ -37,8 +37,8 @@ class LoginActivity : AppCompatActivity() {
         {
             AuthService.loginUser(this, userEmail, userPassword) {loginSuccess ->
                 if (loginSuccess){
-                    println(AuthService.authToken)
-                    println(AuthService.userEmail)
+                    println(App.prefs.authToken)
+                    println(App.prefs.userEmail)
                     AuthService.findUserByEmail(this) { findSuccess ->
                         if (findSuccess) {
                             enableSpinner(false)

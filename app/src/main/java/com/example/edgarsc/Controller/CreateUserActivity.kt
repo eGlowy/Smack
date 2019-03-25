@@ -66,8 +66,8 @@ class CreateUserActivity : AppCompatActivity() {
                 if (registerSuccess){
                     AuthService.loginUser(this, email,password) {
                             loginSuccess -> if (loginSuccess){
-                        println(AuthService.authToken)
-                        println(AuthService.userEmail)
+                        println(App.prefs.authToken)
+                        println(App.prefs.userEmail)
                         AuthService.createUser(this,userName,email,userAvatar , avatarColor) {createSuccess ->
                             if (createSuccess){
                                 //Izsūta informāciju no aktivitātes , lai citas aktivitātes kuras klausās šo broadcast saņemtu informāciju par datu maiņu un citām lietām.

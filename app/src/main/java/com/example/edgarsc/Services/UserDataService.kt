@@ -1,6 +1,7 @@
 package com.example.edgarsc.Services
 
 import android.graphics.Color
+import com.example.edgarsc.Controller.App
 import java.util.*
 
 object UserDataService {
@@ -17,9 +18,9 @@ object UserDataService {
         avatarName = ""
         email = ""
         name = ""
-        AuthService.authToken = ""
-        AuthService.userEmail = ""
-        AuthService.isLoggedIn = false
+        App.prefs.authToken = ""
+        App.prefs.userEmail = ""
+        App.prefs.isLoggedIn = false
 
     }
 
