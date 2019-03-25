@@ -50,6 +50,7 @@ class LoginActivity : AppCompatActivity() {
             }
         } else {
             Toast.makeText(this, "Please fill in both email and password", Toast.LENGTH_LONG).show()
+            enableSpinner(false)
         }
 
     }
