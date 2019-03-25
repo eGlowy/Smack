@@ -12,12 +12,15 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.Toast
+import com.example.edgarsc.Model.Channel
 import com.example.edgarsc.R
 import com.example.edgarsc.Services.AuthService
+import com.example.edgarsc.Services.MessageService
 import com.example.edgarsc.Services.UserDataService
 import com.example.edgarsc.Utilities.BROADCAST_USER_DATA_CHANGE
 import com.example.edgarsc.Utilities.SOCKET_URL
 import io.socket.client.IO
+import io.socket.emitter.Emitter
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import kotlinx.android.synthetic.main.nav_header_main.*
@@ -29,6 +32,8 @@ class MainActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+        socket.connect()
+        socket.on("channelCreated", onNewChannel)
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar,
@@ -39,19 +44,15 @@ class MainActivity : AppCompatActivity(){
         toggle.syncState()
     }
 
-    override fun onPause() {
-        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReciever)
-        super.onPause()
-    }
-
     override fun onResume() {
-        super.onResume()
         LocalBroadcastManager.getInstance(this).registerReceiver(userDataChangeReciever,
             IntentFilter(BROADCAST_USER_DATA_CHANGE))
-        socket.connect()
+
+        super.onResume()
     }
     override fun onDestroy() {
         socket.disconnect()
+        LocalBroadcastManager.getInstance(this).unregisterReceiver(userDataChangeReciever)
         super.onDestroy()
     }
     private val userDataChangeReciever = object : BroadcastReceiver(){
@@ -119,6 +120,20 @@ class MainActivity : AppCompatActivity(){
         }
     }
 
+    private val onNewChannel = Emitter.Listener {args ->
+        //returns from worker thread to main thread
+        runOnUiThread {
+            val channelName = args[0] as String
+            val channelDescription = args[1] as String
+            val channelId = args[2] as String
+            val newChannel = Channel(channelName,channelDescription,channelId)
+
+            MessageService.channels.add(newChannel)
+            println(newChannel.name)
+            println(newChannel.description)
+            println(newChannel.id)
+        }
+    }
     fun sendMsgBtnClicked(view: View){
         hideKeyboard()
     }
