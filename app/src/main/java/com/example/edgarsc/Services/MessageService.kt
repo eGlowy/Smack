@@ -7,11 +7,12 @@ import com.android.volley.toolbox.JsonArrayRequest
 import com.android.volley.toolbox.Volley
 import com.example.edgarsc.Controller.App
 import com.example.edgarsc.Model.Channel
+import com.example.edgarsc.Model.Message
 import com.example.edgarsc.Utilities.URL_GET_CHANNELS
 import org.json.JSONException
 
 object MessageService {
-
+    val messages = ArrayList<Message>()
     val channels = ArrayList<Channel>()
 
     fun getChannels(complete: (Boolean) -> Unit) {
