@@ -62,13 +62,13 @@ class CreateUserActivity : AppCompatActivity() {
         val password = createPasswordText.text.toString()
 
         if (userName.isNotEmpty() && email.isNotEmpty() && password.isNotEmpty()){
-            AuthService.registerUser(this, email, password) {registerSuccess ->
+            AuthService.registerUser(email, password) {registerSuccess ->
                 if (registerSuccess){
-                    AuthService.loginUser(this, email,password) {
+                    AuthService.loginUser(email,password) {
                             loginSuccess -> if (loginSuccess){
                         println(App.prefs.authToken)
                         println(App.prefs.userEmail)
-                        AuthService.createUser(this,userName,email,userAvatar , avatarColor) {createSuccess ->
+                        AuthService.createUser(userName,email,userAvatar , avatarColor) {createSuccess ->
                             if (createSuccess){
                                 //Izsūta informāciju no aktivitātes , lai citas aktivitātes kuras klausās šo broadcast saņemtu informāciju par datu maiņu un citām lietām.
                                 val userDataChange = Intent(BROADCAST_USER_DATA_CHANGE)
